@@ -201,6 +201,16 @@ resource httpapi 'Microsoft.App/containerApps@2022-03-01' = {
       ingress: {
         external: true
         targetPort: 80
+        traffic: [
+          {
+            revisionName: 'httpapi--${ContainerApps_HttpApi_CurrentRevisionName}'
+            weight: 50
+          }
+          {
+            latestRevision: true
+            weight: 50
+          }
+        ]
       }
       secrets: [
         {
